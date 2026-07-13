@@ -2,13 +2,25 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 
 app=FastAPI()
-class User(BaseModel):
-    name:str
-    age:int
-@app.get("/")
-def home():
-     return {"message":"Hello without vern"}
+# class User(BaseModel):
+#     name:str
+#     age:int
+#     email:str
+# @app.get("/create_user")
+# def create_user(user:User):
+#      return {"message":"User is created",
+#      "data":user}
 
+class Address(BaseModel):
+    city:str
+    pincode:int
+class User(BaseModel):
+   name:str
+   age:int
+   address:Address
+@app.post("/create_user")
+def create_user(user:User):
+  return user
 
 @app.get("/about")
 def about():
@@ -24,8 +36,8 @@ def about():
 # def get_users(name ):
 #     return {"Name":name}
 #optional
-def get_users(name: str=None):
-    return {"Name":name}
+# def get_users(name: str=None):
+#     return {"Name":name}
 #default value
 @app.get("/products")
 def get_users(limit: int=10):
